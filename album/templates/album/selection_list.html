@@ -1,0 +1,19 @@
+ {% extends 'base.html' %}
+{% load static %}
+{% block section %}
+ <h2>Selections</h2>
+ <hr>
+{% endblock section %}
+
+{% block maincontent %}
+   <div>
+
+      {% for c in object_list %}
+         <h2><img src="{% static c.shield.url %}" style="width:70px;height:80px"/>
+         <img src="{% static c.team.url %}" style="width:140px;height:80px"/>
+         <a href="{% url 'selection-detail' c.pk %}">
+              {{ c.name }} <br>
+         </a></h2>
+      {% endfor %}
+ </div>
+{% endblock maincontent %}

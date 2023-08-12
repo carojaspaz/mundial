@@ -1,0 +1,8 @@
+{% extends 'base.html' %} 
+{% block maincontent %}
+ <form action=""method="post">{% csrf_token %}
+     <p>Delete "{{ object.first_name }} {{ object.last_name }}"?</p>
+     <input type="submit" value="Confirm" />
+     <a class='btn'href="{% url 'player-list' %}">Cancel</a>
+ </form>
+{% endblock maincontent %}
