@@ -8,13 +8,13 @@
 
 {% block maincontent %}
    <div class="d-flex flex-wrap">
-      {% for c in object_list %}      
+      {% for c in api_selections %}      
       <div class="card mb-4 mr-1">
-         <img class="card-img-top" src="{% static c.shield.url %}" alt="{c.team.name}">
+         <img class="card-img-top" src="{% static c.shield %}" alt="{c.team}">
          <div class="card-body">
             <h5 class="card-title">{{ c.name }}</h5>
             <p class="card-text"></p>
-            <a href="{% url 'selection-detail' c.pk %}" class="btn btn-primary">Equipo</a>
+            <a href="{% url 'selection-detail' c.id %}" class="btn btn-primary">Equipo</a>
          </div>
       </div>                           
       {% endfor %}

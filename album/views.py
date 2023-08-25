@@ -13,13 +13,31 @@ class HomeView(TemplateView):
 
 class SelectionListView(ListView):
     model = Selection
+    template_name = 'album/selection_list.html'  # Asegúrate de ajustar la plantilla
+    context_object_name = 'selections'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Consumir el endpoint de consulta de selecciones desde FastAPI
+        # Reemplaza con la URL de tu endpoint FastAPI
+        api_url = "http://localhost:8080/selections/?skip=0&limit=100"
+        response = requests.get(api_url)
+
+        if response.status_code == 200:
+            selections = response.json()
+            context['api_selections'] = selections
+        else:
+            context['api_error'] = "Error al obtener las selecciones desde la API"
+
+        return context
 
 
 class SelectionCreate(CreateView):
     model = Selection
     fields = '__all__'
-    success_url = reverse_lazy('selection-list')    
-    
+    success_url = reverse_lazy('selection-list')
+
     def form_valid(self, form):
         # Guardar el objeto de formulario en memoria sin persistirlo aún
         selection = form.save(commit=False)
@@ -29,8 +47,8 @@ class SelectionCreate(CreateView):
         team_path = form.cleaned_data['team']
 
         # Asignar las rutas de las imágenes al objeto de selección
-        selection.shield = shield_path
-        selection.team = team_path
+        selection.shield = "shield_path"
+        selection.team = "team_path"
 
         # Guardar el objeto de selección con las rutas de las imágenes
         selection.save()
@@ -39,12 +57,12 @@ class SelectionCreate(CreateView):
         api_url = "http://localhost:8080/selections/"  # Reemplaza con la URL correcta
         data = {
             "name": selection.name,
-            "shield": shield_path,
-            "team": team_path
+            "shield": "shields/" + shield_path.name,
+            "team": "teams/" + team_path.name
         }
-        response = requests.post(api_url, data=data)
+        response = requests.post(api_url, json=data)
 
-        if response.status_code == 201:
+        if response.status_code == 200:
             print("Selección creada en la API exitosamente.")
         else:
             print("Error al crear la selección en la API:", response.text)
