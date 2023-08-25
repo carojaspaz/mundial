@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block maincontent %}
+  <form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.name.id_for_label }}">Nombre:</label>
+      <br>
+      {{ form.name }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.shield_team.id_for_label }}">Equipo Escudo:</label>
+      <br>
+      {{ form.shield }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.shield_team.id_for_label }}">Equipo:</label>
+      <br>
+      {{ form.team }}
+    </div>        
+    <button type="submit">Agregar</button>
+    <a class='btn' href="{% url 'selection-list' %}">Cancelar</a>
+  </form>
+{% endblock maincontent%} 

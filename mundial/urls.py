@@ -19,8 +19,11 @@ from django.urls import path
 from album import views
 
 urlpatterns = [
+    path('', views.HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('selection/', views.SelectionListView.as_view(), name='selection-list'),
+    path('selection/create/', views.SelectionCreate.as_view(),
+         name='selection-create'),
     path('selection/<int:pk>/detail/',
          views.SelectionDetailView.as_view(), name='selection-detail'),
     path('player/', views.PlayerListView.as_view(), name='player-list'),
@@ -30,7 +33,8 @@ urlpatterns = [
     path('player/<int:pk>/update/',
          views.PlayerUpdate.as_view(), name='player-update'),
     # Create
-    path('player/create/', views.PlayerCreate.as_view(), name='player-create'),
+    path('player/<int:pk>/create/',
+         views.PlayerCreate.as_view(), name='player-create'),
     # Delete
     path('player/<int:pk>/delete/',
          views.PlayerDelete.as_view(), name='player-delete'),

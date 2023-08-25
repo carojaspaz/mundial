@@ -1,25 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block section %}
-    <h2>{{ object.name }}</h2>
-    <hr>
+   <div class="row">
+      <div class="col-2">
+         <img src="{% static object.shield %}" style="width:100px;height:100px"/>
+      </div>
+      <div class="col-4">
+         <div class="row">
+            <div class="col-12">
+               <h3>{{ object.name }}</h3>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12">
+               <a href="{% url 'player-create' object.pk %}" class="btn btn-primary">Agregar Jugadora</a>
+            </div>
+      </div>
+   </div>
 {% endblock section %}
 
 {% block maincontent %}
-  <div>
-     <table border="1px">
-      <tr>
-          {% for p in object.get_players.all %}
-             <td>
-               <div>{{ p.first_name }} {{ p.last_name }}</div>
-               <div>
-                  <a href="{% url "player-detail" p.id %}">
-                     <img src="{% static p.photo.url %}" style="width:170px;height:200px"/>
-                  </a>
-               </div>
-             </td>
-           {% endfor %}
-       </tr> 
-      </table>
+<hr>
+  <div class="d-flex flex-wrap">
+   {% for p in object.get_players.all %}            
+      <div class="card mb-4 mr-1">
+         <a href="{% url 'player-detail' p.id %}">
+            <img src="{% static p.photo.url %}" style="width:170px;height:200px"/>
+         </a>
+         <div class="card-body">
+            <h5 class="card-title">{{ p.first_name }} {{ p.last_name }}</h5>
+            <p class="card-text"></p>
+            <a href="{% url 'player-detail' p.id %}" class="btn btn-primary">Detalles</a>
+         </div>
+      </div>         
+   {% endfor %}       
    </div>
 {% endblock maincontent %}

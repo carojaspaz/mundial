@@ -3,17 +3,34 @@
 {% load static %}
 
 {% block section %}
-   <h2>
-       {{ object.first_name }} {{ object.last_name }}
-       {% if object.selection_id %}
-         ( <a href="{% url "selection-detail" object.selection_id %}">
+    <div class="row">
+        <div class="col-2">
+           <img class="card-img-top" src="{% static object.selection.shield.url %}" alt="{ object.selection }" style="width:110px;height:100px" /> 
+        </div>        
+        <div class="col-10">
+            <h2>{{ object.first_name }} {{ object.last_name }}</h2>            
+            {% if object.selection_id %}
+            ( <a href="{% url "selection-detail" object.selection_id %}">
              {{ object.selection }}
-           </a> )
+            </a> )
+            <p><strong>Posición: </strong>{{ object.comment|default:"no comments" }}</p>
        {% endif %}
-    </h2>
-    <p><strong>comments: </strong>{{ object.comment|default:"no comments" }}</p>
-    <a href="{% url "player-update" object.id %}">edit</a>
-    <a href="{% url "player-delete" object.id %}">delete</a> 
+        </div>
+    </div>    
+    <div class="row">
+        <div class="offset-2 col-1">
+            <p><strong>Talla: </strong>{{ object.height }}</p>
+        </div>
+        <div class="col-1">
+            <p><strong>Peso: </strong>{{ object.weight }}</p>
+        </div>
+    </div>       
+    <div class="row">
+        <div class="offset-2 col-10">
+            <a href="{% url "player-update" object.id %}" class="btn btn-primary">Modificar</a>
+            <a href="{% url "player-delete" object.id %}" class="btn btn-primary">Eliminar</a> 
+        </div>
+    </div>        
    <hr>
 {% endblock section %}
 

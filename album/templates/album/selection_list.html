@@ -1,19 +1,22 @@
  {% extends 'base.html' %}
 {% load static %}
 {% block section %}
- <h2>Selections</h2>
+ <h2>SELECIONES</h2>
+ <a href="{% url 'selection-create' %}" class="btn btn-primary">Agregar Selecion</a>
  <hr>
 {% endblock section %}
 
 {% block maincontent %}
-   <div>
-
-      {% for c in object_list %}
-         <h2><img src="{% static c.shield.url %}" style="width:70px;height:80px"/>
-         <img src="{% static c.team.url %}" style="width:140px;height:80px"/>
-         <a href="{% url 'selection-detail' c.pk %}">
-              {{ c.name }} <br>
-         </a></h2>
+   <div class="d-flex flex-wrap">
+      {% for c in object_list %}      
+      <div class="card mb-4 mr-1">
+         <img class="card-img-top" src="{% static c.shield.url %}" alt="{c.team.name}">
+         <div class="card-body">
+            <h5 class="card-title">{{ c.name }}</h5>
+            <p class="card-text"></p>
+            <a href="{% url 'selection-detail' c.pk %}" class="btn btn-primary">Equipo</a>
+         </div>
+      </div>                           
       {% endfor %}
- </div>
+   </div>
 {% endblock maincontent %}

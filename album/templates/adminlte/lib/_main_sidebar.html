@@ -13,15 +13,6 @@
     <div class="sidebar">
         <!-- Sidebar user panel -->
         {% block user_panel %}
-        <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{% avatar_url size=90 %}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">{% firstof request.user.get_full_name request.user.username %}</a>
-        </div>
-      </div>
         {% endblock %}
 
         {% block form %}{% endblock %}
@@ -31,35 +22,14 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             {% block nav_links_outer %}
-            <li class="nav-header">{% block nav_heading %}MAIN NAVIGATION{% endblock %}</li>
-
-            {% block nav_links %}
+            <li class="nav-header">{% block nav_heading %}MUNDIAL FEMENINO{% endblock %}</li>
+                {% block nav_links %}
                 <li>
                     <a href="{% url "selection-list" %}">
-                        <i class="fa fa-users"></i> <span>Selection</span>
+                        <i class="fa fa-flag"></i> <span>SELECCIONES</span>
                     </a>
-                </li>
-                <li>
-                        <a href="{% url "player-list" %}">
-                            <i class="fa fa-address-card"></i> <span>Player</span>
-                        </a>
-                    </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-save"></i> <span>Create</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                            <li>
-                                <a href="{% url "player-create" %}">
-                                    <i class="fa fa-address-card"></i> Player
-                                </a>
-                            </li>
-                    </ul>
-                </li>
-            {% endblock nav_links %}
+                </li>               
+                {% endblock nav_links %}
             {% endblock nav_links_outer %}
             </ul>
             </nav>
